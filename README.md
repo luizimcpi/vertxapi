@@ -27,3 +27,19 @@ java -jar target/vertxapi-0.0.1-SNAPSHOT-RELEASE.jar
 
 Pronto! Agora abra o navegador na seguinte URL: http://localhost:9000.
 
+
+## Executando os Endpoints:
+Listar todos os contatos:
+http://localhost:9000/api/contatos GET
+
+
+Adiciona um contato:
+http://localhost:9000/api/contatos POST
+Body
+
+```
+{
+   "nome":"Luiz Evangelista",
+   "telefone":"(13)3222-2222"
+}
+```

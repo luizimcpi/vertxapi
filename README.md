@@ -16,6 +16,11 @@ mvn clean package
 
 
 ```
+Compile e execute a classe Run.java
+```
+OU
+
+```
 java -jar target/vertxapi-0.0.1-SNAPSHOT-RELEASE.jar
 ```
 

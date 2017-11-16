@@ -1,1 +1,2 @@
-com/concrete/vertxapi/server/MainVerticle.class
+com/concrete/vertxapi/server/ServerVerticle.class
+com/concrete/vertxapi/main/Run.class

@@ -1,22 +1,15 @@
 package com.concrete.vertxapi.entities;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 public class Contato {
 
-	private static final AtomicInteger COUNTER = new AtomicInteger();
-
-	private final int id;
+	private int id;
 
 	private String nome;
 
 	private String telefone;
 
-	public Contato(String nome, String telefone) {
-		this.id = COUNTER.getAndIncrement();
-		this.nome = nome;
-		this.telefone = telefone;
-	}
+	public Contato() {}
+	
 
 	public String getNome() {
 		return nome;
@@ -33,7 +26,11 @@ public class Contato {
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
-
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	public int getId() {
 		return id;
 	}

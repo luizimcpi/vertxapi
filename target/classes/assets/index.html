@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Contatos</title>
+
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container" role="main">
+    <div class="jumbotron">
+        <h1>Minha Lista de Contatos</h1>
+    </div>
+    <div class="page-header">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Meus Contatos</h1>
+                <button class="pull-right btn btn-primary product-add" data-action="add" data-toggle="modal"
+                        data-target="#productModal">
+                    <span class="glyphicon glyphicon-plus"></span> Adicionar Contato
+                </button>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nome</th>
+                        <th>Telefone</th>
+                    </tr>
+                    </thead>
+                    <tbody id="content">
+                    <!-- filled using Ajax -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        load();
+        initModal();
+    });
+
+    function create(nome, telefone) {
+        $.post("/api/contato", JSON.stringify({nome: nome, telefone: telefone}), function () {
+            load();
+        }, "json");
+    }
+
+    function remove(id) {
+        $.ajax({
+            method: "DELETE",
+            url: "/api/contato/" + id
+        }).done(function () {
+            load();
+        });
+    }
+
+    function update(id, nome, telefone) {
+        $.ajax({
+            method: "PUT",
+            url: "/api/contato/" + id,
+            data: JSON.stringify({nome: nome, telefone: telefone})
+        }).done(function () {
+            load();
+        });
+    }
+
+    function load() {
+        $("#content").children().remove();
+        $.getJSON("/api/contato", function (data) {
+            $.each(data, function (key, val) {
+                $("<tr><td>" + val.id + "</td><td>" + val.nome + "</td><td>" + val.telefone + "</td>" +
+                        "<td>" +
+                        "<button data-action='edit' class='btn btn-primary btn-sm product-edit' " +
+                        "data-toggle='modal' " +
+                        "data-target='#productModal' " +
+                        "data-nome='" + val.nome + "' " +
+                        "data-telefone='" + val.telefone + "' " +
+                        "data-id='" + val.id + "'>" +
+                        "<span class='glyphicon glyphicon-pencil'></span>" +
+                        "</button>" +
+                        "&nbsp;" +
+                        "<button class='btn btn-danger btn-sm product-delete' data-id='" + val.id + "'>" +
+                        "   <span class='glyphicon glyphicon-minus'></span>" +
+                        "</button>" +
+                        "</td>" +
+                        "</tr>").appendTo("#content");
+            });
+            initCallbacks();
+        });
+    }
+
+    function initCallbacks() {
+        $(".product-delete").unbind().click(function() {
+           var id = $(this).data("id");
+           remove(id);
+        });
+    }
+
+    function initModal() {
+        $("#productModal").on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var action = button.data('action');
+            var id = button.data('id');
+            var productAction = $("#productAction");
+            productAction.unbind();
+            var modal = $(this);
+            if (action === "add") {
+                modal.find('.modal-title').text("Adicionar Contato");
+                modal.find('#product-nome').val("");
+                modal.find('#product-telefone').val("");
+                productAction.click(function () {
+                    create($("#product-nome").val(), $("#product-telefone").val());
+                    $('#productModal').modal('toggle');
+                });
+            } else {
+                modal.find('.modal-title').text("Editar");
+                modal.find('#product-nome').val(button.data("nome"));
+                modal.find('#product-telefone').val(button.data("telefone"));
+                productAction.click(function () {
+                    update(id, $("#product-nome").val(), $("#product-telefone").val());
+                    $('#productModal').modal('toggle');
+                });
+            }
+        })
+    }
+</script>
+<div class="modal fade" id="productModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                <h4 class="modal-title" id="productModalTitle">Adicionar Contato</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="product-nome" class="control-label">Nome:</label>
+                        <input type="text" class="form-control" id="product-nome">
+                    </div>
+                    <div class="form-group">
+                        <label for="product-telefone" class="control-label">Telefone:</label>
+                        <input type="text" class="form-control" id="product-telefone">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" id="productAction" class="btn btn-primary">Salvar</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -35,12 +35,12 @@ public class ServerVerticle extends AbstractVerticle {
 
 		router.route("/assets/*").handler(StaticHandler.create("assets"));
 
-		router.route("/api/contato*").handler(BodyHandler.create());
-		router.post("/api/contato").handler(this::addContato);
-		router.get("/api/contato").handler(this::getAll);
-		router.get("/api/contato/:id").handler(this::getById);
-		router.put("/api/contato/:id").handler(this::update);
-		router.delete("/api/contato/:id").handler(this::delete);
+		router.route("/api/contatos*").handler(BodyHandler.create());
+		router.post("/api/contatos").handler(this::addContato);
+		router.get("/api/contatos").handler(this::getAll);
+		router.get("/api/contatos/:id").handler(this::getById);
+		router.put("/api/contatos/:id").handler(this::update);
+		router.delete("/api/contatos/:id").handler(this::delete);
 
 		vertx.createHttpServer().requestHandler(router::accept).listen(config().getInteger("http.port", 9000),
 				result -> {

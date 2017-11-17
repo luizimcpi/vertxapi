@@ -33,28 +33,28 @@ Pronto! Agora abra o navegador na seguinte URL: http://localhost:9000.
 Listar todos os contatos:
 
 ```
-http://localhost:9000/api/contato GET
+http://localhost:9000/api/contatos GET
 ```
 Adicionar contato:
 
 ```
-http://localhost:9000/api/contato POST
+http://localhost:9000/api/contatos POST
 ```
 Consultar contato:
 
 ```
-http://localhost:9000/api/contato/id GET
+http://localhost:9000/api/contatos/id GET
 ```
 Alterar contato:
 
 ```
-http://localhost:9000/api/contato/id PUT
+http://localhost:9000/api/contatos/id PUT
 ```
 
 Deletar contato:
 
 ```
-http://localhost:9000/api/contato/id DELETE
+http://localhost:9000/api/contatos/id DELETE
 ```
 
 Exmplo de Body

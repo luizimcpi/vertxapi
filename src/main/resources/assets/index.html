@@ -44,7 +44,7 @@
     });
 
     function create(nome, telefone) {
-        $.post("/api/contato", JSON.stringify({nome: nome, telefone: telefone}), function () {
+        $.post("/api/contatos", JSON.stringify({nome: nome, telefone: telefone}), function () {
             load();
         }, "json");
     }
@@ -52,7 +52,7 @@
     function remove(id) {
         $.ajax({
             method: "DELETE",
-            url: "/api/contato/" + id
+            url: "/api/contatos/" + id
         }).done(function () {
             load();
         });
@@ -61,7 +61,7 @@
     function update(id, nome, telefone) {
         $.ajax({
             method: "PUT",
-            url: "/api/contato/" + id,
+            url: "/api/contatos/" + id,
             data: JSON.stringify({nome: nome, telefone: telefone})
         }).done(function () {
             load();
@@ -70,7 +70,7 @@
 
     function load() {
         $("#content").children().remove();
-        $.getJSON("/api/contato", function (data) {
+        $.getJSON("/api/contatos", function (data) {
             $.each(data, function (key, val) {
                 $("<tr><td>" + val.id + "</td><td>" + val.nome + "</td><td>" + val.telefone + "</td>" +
                         "<td>" +

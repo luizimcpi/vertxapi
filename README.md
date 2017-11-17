@@ -29,13 +29,36 @@ Pronto! Agora abra o navegador na seguinte URL: http://localhost:9000.
 
 
 ## Executando os Endpoints:
+
 Listar todos os contatos:
+
+```
 http://localhost:9000/api/contato GET
+```
 
 
+```
 Adiciona um contato:
 http://localhost:9000/api/contato POST
-Body
+```
+Consulta contato por id:
+
+```
+http://localhost:9000/api/contato/id GET
+```
+Alterar contato:
+
+```
+http://localhost:9000/api/contato/id PUT
+```
+
+Deletar contato:
+
+```
+http://localhost:9000/api/contato/id DELETE
+```
+
+Exmplo de Body
 
 ```
 {

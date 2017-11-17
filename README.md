@@ -35,10 +35,9 @@ Listar todos os contatos:
 ```
 http://localhost:9000/api/contato GET
 ```
-
+Adiciona um contato:
 
 ```
-Adiciona um contato:
 http://localhost:9000/api/contato POST
 ```
 Consulta contato por id:

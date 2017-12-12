@@ -16,16 +16,13 @@ mvn clean package
 
 
 ```
-Compile e execute a classe Run.java
+Importe o projeto para a IDE de sua preferência execute a classe Run.java
 ```
 OU
 
 ```
 java -jar target/vertxapi-0.0.1-SNAPSHOT-RELEASE.jar
 ```
-
-
-Pronto! Agora abra o navegador na seguinte URL: http://localhost:9000.
 
 
 ## Executando os Endpoints:
